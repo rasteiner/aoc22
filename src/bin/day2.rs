@@ -1,6 +1,6 @@
 
-#[derive(Clone, Copy)]
-#[cfg_attr(test, derive(Debug, PartialEq))]
+#[derive(Clone, Copy, PartialEq)]
+#[cfg_attr(test, derive(Debug))]
 enum Figure {
     Rock = 1,
     Paper = 2,
@@ -57,17 +57,11 @@ impl From<&RoundStrategy> for Round {
 }
 
 impl Round {
-    fn score(self) -> i32 {    
-        match self {
-            Round (Figure::Rock, Figure::Paper) |
-            Round (Figure::Paper, Figure::Scissors) |
-            Round (Figure::Scissors, Figure::Rock) => 6 + self.1 as i32,
-    
-            Round (Figure::Rock, Figure::Scissors) | 
-            Round (Figure::Paper, Figure::Rock) | 
-            Round (Figure::Scissors, Figure::Paper) => self.1 as i32,
-            _ => 3 + self.1 as i32,
-        }
+    fn score(self) -> i32 {
+        self.1 as i32 + 
+            if self.1.wins_against() == self.0 { 6 } 
+            else if self.1.loses_against() == self.0 { 0 }
+            else { 3 }
     }
 }
 
