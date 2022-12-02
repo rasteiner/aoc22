@@ -1,5 +1,6 @@
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy)]
+#[cfg_attr(test, derive(Debug, PartialEq))]
 enum Figure {
     Rock = 1,
     Paper = 2,
@@ -35,7 +36,7 @@ impl From<char> for Figure {
     }
 }
 
-#[derive(Clone, PartialEq, Debug)]
+#[cfg_attr(test, derive(Clone, PartialEq, Debug))]
 struct Round(Figure, Figure);
 
 impl From<&str> for Round {
@@ -88,7 +89,7 @@ impl From<char> for Strategy {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[cfg_attr(test, derive(Clone, Copy, Debug, PartialEq))]
 struct RoundStrategy(Figure, Strategy);
 
 impl From<&str> for RoundStrategy {
