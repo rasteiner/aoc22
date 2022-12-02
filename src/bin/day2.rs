@@ -65,7 +65,7 @@ impl Round {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[cfg_attr(test, derive(Clone, Copy, Debug, PartialEq))]
 enum Strategy {
     Lose,
     Draw,
