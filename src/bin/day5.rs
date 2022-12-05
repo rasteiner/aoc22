@@ -11,21 +11,20 @@ fn parse_stacks(input: &str) -> Stacks {
     let mut stacks = HashMap::new();
 
     for line in input.lines() {
-        //split line every 4 characters
-        let chunks: Vec<String> = line
+        
+        line
             .chars()
             .collect::<Vec<char>>()
             .chunks(4)
             .map(|chunk| chunk.iter().collect::<String>().trim().to_owned())
-            .collect();
-
-        for (i, chunk) in chunks.iter().enumerate() {
-            let stack_name = stack_names[i];
-            let stack = stacks.entry(stack_name).or_insert(vec![]);
-            if chunk.len() > 0 {
-                stack.insert(0, chunk.to_owned());
-            }
-        }
+            .enumerate()
+            .for_each(|(i, chunk)| {
+                let stack_name = stack_names[i];
+                let stack = stacks.entry(stack_name).or_insert(vec![]);
+                if chunk.len() > 0 {
+                    stack.insert(0, chunk.to_owned());
+                }
+            });
     }
 
     stacks
