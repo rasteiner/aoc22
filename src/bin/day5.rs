@@ -12,6 +12,7 @@ fn parse_stacks(input: &str) -> Stacks {
 
     for line in input.lines() {
         
+        //split line every 4 characters
         line
             .chars()
             .collect::<Vec<char>>()
@@ -85,7 +86,7 @@ fn get_tops(input: &str, func: impl Fn(Stacks, Vec<Op>) -> Stacks) -> String {
         .iter()
         .map(|(_, v)| v.last().unwrap())
         .map(|s| s.chars().nth(1).unwrap())
-        .fold(String::new(), |a, b| a.to_string() + b.to_string().as_str())
+        .collect()
 }
 
 fn main() {
