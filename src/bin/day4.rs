@@ -19,33 +19,21 @@ fn parse_line(line: &str) -> (RangeInclusive<i32>, RangeInclusive<i32>) {
     )
 }
 
-fn part_1(input: &str) -> i32 {
+fn count(input: &str, func: impl Fn(RangeInclusive<i32>, RangeInclusive<i32>) -> bool) -> i32 {
     let mut count = 0;
     for line in input.lines() {
         let (left, right) = parse_line(line);
-        if is_fully_overlapping(left, right) {
+        if func(left, right) {
             count += 1;
         }
     }
     count
 }
-
-fn part_2(input: &str) -> i32 {
-    let mut count = 0;
-    for line in input.lines() {
-        let (left, right) = parse_line(line);
-        if is_partially_overlapping(left, right) {
-            count += 1;
-        }
-    }
-    count
-}
-
 
 fn main() {
     let input = include_str!("../../inputs/4.txt");
-    println!("part 1: {}", part_1(input));
-    println!("part 2: {}", part_2(input));
+    println!("part 1: {}", count(input, is_fully_overlapping));
+    println!("part 2: {}", count(input, is_partially_overlapping));
 }
 
 #[cfg(test)]
@@ -77,6 +65,7 @@ mod tests {
 
     #[test]
     fn test_part_1() {
-        assert_eq!(part_1(INPUT), 2);
+        assert_eq!(count(INPUT, is_fully_overlapping), 2);
+        assert_eq!(count(INPUT, is_partially_overlapping), 4);
     }
 }
